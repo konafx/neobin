@@ -1,16 +1,12 @@
-set srcs ls grep rm find
-set ls exa
-set grep rg
-set rm rip
-set find fd
+set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+set -g _neobin_config $XDG_CONFIG_HOME/neobin
 
-for i in (seq (count $$srcs))
-    set src $srcs[$i]
-    set dst $$srcs[$i]
+if test ! -d $_neobin_config
+    command mkdir -p $_neobin_config
+end
 
-    type -q $dst
-    or echo 'Install '$dst' instead of '$src; continue
+set -g _neobin_cmds_file $_neobin_config/cmds
 
-    echo $src' -> '$dst
-    #alias $src=$dst
+if test ! -e $_neobin_cmds_file
+    touch $_neobin_cmds_file
 end
